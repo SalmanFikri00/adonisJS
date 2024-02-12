@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Kelas - Create</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Data Kelas</h2>
+
+<button onclick="openModal()">Tambah Kelas</button>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="modal" id="kelasModal">
+  <h3>Tambah Kelas</h3>
+  <form id="kelas-form">
+    <label for="kode">Kode Kelas:</label>
+    <input type="text" id="kode" required>
+    <label for="nama">Nama Kelas:</label>
+    <input type="text" id="nama" required>
+    <label for="siswa">Jumlah Siswa:</label>
+    <input type="number" id="siswa" required>
+    <button type="submit">Tambah Kelas</button>
+  </form>
+  <button onclick="closeModal()">Tutup</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const kelasForm = document.getElementById('kelas-form');
+    const kelasModal = document.getElementById('kelasModal');
+    const overlay = document.getElementById('overlay');
+
+    kelasForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const kode = document.getElementById('kode').value;
+      const nama = document.getElementById('nama').value;
+      const siswa = document.getElementById('siswa').value;
+
+      const newKelas = {
+        kode: kode,
+        nama: nama,
+        siswa: siswa
+      };
+
+      // Lakukan apa yang perlu dilakukan dengan data kelas
+      console.log(newKelas);
+
+      closeModal();
+    });
+
+    window.openModal = function () {
+      kelasModal.style.display = 'block';
+      overlay.style.display = 'block';
+    };
+
+    window.closeModal = function () {
+      kelasModal.style.display = 'none';
+      overlay.style.display = 'none';
+      kelasForm.reset();
+    };
+  });
+</script>
+
+</body>
+</html>

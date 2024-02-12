@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Kelas - CRUD</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Data Kelas {{nama_admin}} </h2>
+
+    <button onclick="openModal()">Tambah Kelas</button>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="modal" id="kelasModal">
+      <h3>Tambah Kelas</h3>
+      <form id="kelas-form" action="{{ route('kelas.store') }}" method="POST">
+        <div style="margin-bottom: 10px">
+          <label for="kode">Kode Kelas:</label>
+          <input type="text" id="kode" name="kode" required />
+        </div>
+        <div style="margin-bottom: 10px">
+          <label for="nama">Nama Kelas:</label>
+          <input type="text" id="nama" name="nama" required />
+        </div>
+        <div style="margin-bottom: 10px">
+          <label for="Guru">Nama Guru</label>
+          <input type="text" id="Guru" name="guru" required />
+        </div>
+        <button type="submit" style="margin-bottom: 10px">Tambah Kelas</button>
+      </form>
+      <button onclick="closeModal()">Tutup</button>
+    </div>
+
+    <table id="kelas-table">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Kode Kelas</th>
+          <th>Nama Kelas</th>
+          <th>Nama Guru</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if(kelas[0]?.id)
+        @each(data in kelas)
+        <tr>
+          <td>{{ data?.idx }}</td>
+          <td>{{ data?.kode }}</td>
+          <td>{{ data?.nama }}</td>
+          <td>{{ data?.nama_guru }}</td>
+          <td>
+            <a href="{{ route('kelas.detail', { id: data.id }) }}">Detail </a>
+            <!-- <a href="{{ route('kelas.update', { id: data.id }) }}">Edit</a> -->
+            <a href="{{ route('kelas.delete', { id: data.id }) }}">Delete</a>
+          </td>
+        </tr>
+        @endeach
+        @endif
+        <!-- Data kelas akan ditampilkan di sini -->
+      </tbody>
+    </table>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const kelasForm = document.getElementById("kelas-form");
+        const kelasModal = document.getElementById("kelasModal");
+        const overlay = document.getElementById("overlay");
+
+        // kelasForm.addEventListener("submit", function (event) {
+        //   event.preventDefault();
+
+        //   closeModal();
+        // });
+
+        window.openModal = function () {
+          kelasModal.style.display = "block";
+          overlay.style.display = "block";
+        };
+
+        window.closeModal = function () {
+          kelasModal.style.display = "none";
+          overlay.style.display = "none";
+          kelasForm.reset();
+        };
+      });
+    </script>
+  </body>
+</html>

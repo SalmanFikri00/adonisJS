@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Siswa</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+  </style>
+  
+</head>
+<body>
+  <h1>https://bit.ly/pptadonisjs</h1>
+  
+
+  <div >
+    <h3> Kelas</h3>
+    <form id="kelas-form" action="{{ route('kelas.update',{id:kelas?.id}) }}" method="POST">
+      <div style="margin-bottom: 10px">
+        <label for="kode">Kode Kelas:</label>
+        <input type="text" id="kode" name="kode" value="{{kelas?.kode}}" required />
+      </div>
+      <div style="margin-bottom: 10px">
+        <label for="nama">Nama Kelas:</label>
+        <input type="text" id="nama" name="nama" value="{{kelas?.nama}}" required />
+      </div>
+      <div style="margin-bottom: 10px">
+        <label for="Guru">Nama Guru:</label>
+        <input type="text" id="Guru" name="guru" value="{{kelas?.namaGuru}}" required />
+      </div>
+      <button type="submit" style="margin-bottom: 10px">Edit Kelas</button>
+    </form>
+   
+  </div>
+  <h2>Data Siswa</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Nama Siswa</th>
+        <th scope="col">Whatsapp</th>
+        <th scope="col">Tindakan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>John Doe</td>
+        <td>XII IPA 1</td>
+        <td>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+            Edit
+          </button>
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+            Hapus
+          </button>
+        </td>
+      </tr>
+      <!-- Tambahkan baris sesuai dengan data siswa yang dimiliki -->
+    </tbody>
+  </table>
+
+  <!-- Tombol Tambah Siswa -->
+  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">
+    Tambah Siswa
+  </button>
+
+  <!-- Modal Tambah Siswa -->
+  <div class="modal" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <!-- Isi modal tambah siswa di sini -->
+    <!-- Modal Tambah Siswa -->
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addModalLabel">Tambah Siswa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form untuk menambah siswa -->
+          <form id="siswa-form" action="{{ route('siswa.store') }}" method="POST">
+            <input type="hidden" value="{{kelas.id}}">
+            <div class="form-group">
+              <label for="nama">Nama Siswa:</label>
+              <input type="text" class="form-control" id="nama" name="nama" required>
+            </div>
+            <div class="form-group">
+              <label for="whatsapp">Whatsapp:</label>
+              <input type="text" class="form-control" id="whatsapp" name="whatsapp" required>
+            </div>
+            <!-- Tambahkan input untuk atribut lain sesuai kebutuhan -->
+  
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+  
+  </div>
+
+  <!-- Modal Edit Siswa -->
+  <div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <!-- Isi modal edit siswa di sini -->
+  </div>
+
+  <!-- Modal Hapus Siswa -->
+  <div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <!-- Isi modal hapus siswa di sini -->
+  </div>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script>document.addEventListener("DOMContentLoaded", function () {
+  const kelasForm = document.getElementById("kelas-form");
+  const kelasModal = document.getElementById("kelasModal");
+  const overlay = document.getElementById("overlay");
+
+  // kelasForm.addEventListener("submit", function (event) {
+  //   event.preventDefault();
+
+  //   closeModal();
+  // });
+
+  window.openModal = function () {
+    kelasModal.style.display = "block";
+    overlay.style.display = "block";
+  };
+
+  window.closeModal = function () {
+    kelasModal.style.display = "none";
+    overlay.style.display = "none";
+    kelasForm.reset();
+  };
+});</script>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
